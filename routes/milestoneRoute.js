@@ -1,5 +1,5 @@
 const express = require("express");
-const { getAllMilestone } = require("../controllers/MilestoneController");
+const { getAllMilestone } = require("../controllers/milestoneController");
 
 const router = express.Router();
 
