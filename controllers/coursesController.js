@@ -29,7 +29,7 @@ exports.getAllCourses = async (req, res) => {
 exports.getSingleCourse = async (req, res) => {
   try {
     const coursesId = req.params.id;
-    const [data] = await db.query(`SELECT * FROM Courses WHERE id=?`, [
+    const [data] = await db.query(`SELECT * FROM courses WHERE id=?`, [
       coursesId,
     ]);
 

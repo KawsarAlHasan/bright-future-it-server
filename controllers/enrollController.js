@@ -40,3 +40,22 @@ exports.createPayment = async (req, res) => {
     });
   }
 };
+
+exports.ceckPayment = async (req, res) => {
+  try {
+    const { user_id, courses_id } = req.body;
+
+    const [result] = await db.query(`SELECT * FROM enroll `);
+    res.status(200).send({
+      success: true,
+      message: "Enroll inserted successfully",
+      insertId: result.insertId,
+    });
+  } catch (error) {
+    res.status(500).send({
+      success: false,
+      message: "Database error",
+      error: error.message,
+    });
+  }
+};
