@@ -21,6 +21,7 @@ app.use(express.json());
 // Serve static files
 app.use("/public", express.static(path.join(__dirname, "public")));
 
+app.use("/api/v1/admin", require("./routes/adminRoute"));
 app.use("/api/v1/user", require("./routes/userRoute"));
 app.use("/api/v1/milestone", require("./routes/milestoneRoute"));
 app.use("/api/v1/courses", require("./routes/coursesRoute"));

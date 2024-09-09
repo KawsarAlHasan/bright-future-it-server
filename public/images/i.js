@@ -17,19 +17,19 @@
 
 // pm2 start index.js --name "bright-future-it-server"
 
-// sudo nano /etc/nginx/sites-available/bright-futureit.com
+// sudo nano /etc/nginx/sites-available/api-bfi.alloneautos.com
 
 // server {
 //     listen 80;
-//     server_name api.bright-futureit.com;
+//     server_name api-bfi.alloneautos.com;
 
 //     location / {
-// proxy_pass http://localhost:3000;
-// proxy_http_version 1.1;
-// proxy_set_header Upgrade $http_upgrade;
-// proxy_set_header Connection 'upgrade';
-// proxy_set_header Host $host;
-// proxy_cache_bypass $http_upgrade;
+//         proxy_pass http://localhost:3001;
+//         proxy_http_version 1.1;
+//         proxy_set_header Upgrade $http_upgrade;
+//         proxy_set_header Connection 'upgrade';
+//         proxy_set_header Host $host;
+//         proxy_cache_bypass $http_upgrade;
 //     }
 // }
 
@@ -65,7 +65,7 @@
 // /root/bright-future-it-fontend/dist
 // ln -s /etc/nginx/sites-available/yourDomain.com /etc/nginx/sites-enabled/yourDomain.com
 
-// sudo ln -s /etc/nginx/sites-available/bright-futureit.com /etc/nginx/sites-enabled/bright-futureit.com
+// sudo ln -s /etc/nginx/sites-available/api-bfi.alloneautos.com /etc/nginx/sites-enabled/api-bfi.alloneautos.com
 // sudo nginx -t
 // sudo systemctl restart nginx
 

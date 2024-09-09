@@ -256,3 +256,31 @@ exports.updateUserPassword = async (req, res) => {
     });
   }
 };
+
+exports.userStatusUpadate = async (req, res) => {
+  try {
+    const { status, userId } = req.body;
+    if (!status || !userId) {
+      return res.status(500).send({
+        success: false,
+        message: "status and userId is required in body",
+      });
+    }
+
+    const [data] = await db.query(`UPDATE users SET status=? WHERE id=?`, [
+      status,
+      userId,
+    ]);
+
+    res.status(200).send({
+      success: true,
+      message: "User status updated successfully",
+    });
+  } catch (error) {
+    res.status(500).send({
+      success: false,
+      message: "Error in User status update",
+      error: error.message,
+    });
+  }
+};
