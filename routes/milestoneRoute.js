@@ -13,12 +13,16 @@ const {
   deleteMileStone,
   deleteModule,
   deleteTopics,
+  getSingleMilestoneByID,
+  getSingleModuleByID,
 } = require("../controllers/milestoneController");
 const verifyadmin = require("../middleware/verifyadmin");
 
 const router = express.Router();
 
 router.get("/all", getAllMilestone);
+router.get("/mile/:id", getSingleMilestoneByID);
+router.get("/module/:id", getSingleModuleByID);
 
 router.get("/milestones", verifyadmin, getMileStone);
 router.post("/milestones", verifyadmin, createMilestone);

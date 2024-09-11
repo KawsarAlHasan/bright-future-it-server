@@ -45,6 +45,7 @@ exports.getAllMilestone = async (req, res) => {
         return {
           ...stone,
           complete: percentComplete,
+          incompleteModules: incompleteModules,
           modules: modulesWithTopics,
         };
       })
@@ -60,6 +61,101 @@ exports.getAllMilestone = async (req, res) => {
     res.status(500).send({
       success: false,
       message: "Error in Get All Milestones",
+      error: error.message,
+    });
+  }
+};
+
+// get single Milestone
+exports.getSingleMilestoneByID = async (req, res) => {
+  try {
+    const milestoneid = req.params.id;
+
+    // Query to get all milestones
+    const [data] = await db.query(
+      `SELECT * FROM milestones WHERE MilestoneID = ?`,
+      [milestoneid]
+    );
+
+    if (!data || data.length === 0) {
+      return res.status(200).send({
+        success: true,
+        message: "No Milestone found",
+        data: [],
+      });
+    }
+
+    // Query to get modules associated with a milestone
+    const moduleQuery = "SELECT * FROM modules WHERE MilestoneID = ?";
+
+    const [modules] = await db.query(moduleQuery, [milestoneid]);
+
+    const totalModules = modules.length;
+    const completedModules = modules.filter(
+      (module) => module.isComplete
+    ).length;
+    const incompleteModules = totalModules - completedModules;
+
+    const percentComplete = (completedModules / totalModules) * 100;
+
+    const milestone = {
+      ...data[0],
+      complete: percentComplete,
+      incompleteModules,
+    };
+
+    // Send the response with milestones, modules, and topics
+    res.status(200).send({
+      success: true,
+      message: "Single Milestones",
+      data: milestone,
+    });
+  } catch (error) {
+    res.status(500).send({
+      success: false,
+      message: "Error in Get Single Milestones",
+      error: error.message,
+    });
+  }
+};
+
+// get single Module
+exports.getSingleModuleByID = async (req, res) => {
+  try {
+    const ModuleID = req.params.id;
+
+    // Query to get single module
+    const [data] = await db.query(`SELECT * FROM modules WHERE ModuleID = ?`, [
+      ModuleID,
+    ]);
+
+    if (!data || data.length === 0) {
+      return res.status(200).send({
+        success: true,
+        message: "No Module found",
+        data: [],
+      });
+    }
+
+    // Query to get topics associated with a module
+    const moduleQuery = "SELECT * FROM topics WHERE ModuleID = ?";
+
+    const [topics] = await db.query(moduleQuery, [ModuleID]);
+
+    const module = {
+      ...data[0],
+      topics,
+    };
+
+    res.status(200).send({
+      success: true,
+      message: "Single Module",
+      data: module,
+    });
+  } catch (error) {
+    res.status(500).send({
+      success: false,
+      message: "Error in Get Single Module",
       error: error.message,
     });
   }
