@@ -26,6 +26,7 @@ app.use("/api/v1/user", require("./routes/userRoute"));
 app.use("/api/v1/milestone", require("./routes/milestoneRoute"));
 app.use("/api/v1/courses", require("./routes/coursesRoute"));
 app.use("/api/v1/enroll", require("./routes/enrollRoute"));
+app.use("/api/v1/project", require("./routes/liveProjectRoute"));
 
 const port = process.env.PORT || 8080;
 
